@@ -138,8 +138,18 @@ function showOptions(options) {
     chat.appendChild(div);
 }
 
-function sendToGoogleForm() {
-    alert("Sending: " + answers.join(", "));
+ffunction sendToGoogleForm() {
+    let formData = new FormData();
+
+    entries.forEach((entry, i) => {
+        formData.append(entry, answers[i]);
+    });
+
+    fetch(formURL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+    });
 }
 
 function nextStep() {
