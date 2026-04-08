@@ -46,11 +46,6 @@ button {
     background: #eee;
     cursor: pointer;
 }
-
-button:hover {
-    background: #F26A6A;
-    color: white;
-}
 </style>
 
 </head>
@@ -60,16 +55,17 @@ button:hover {
 <div class="chat" id="chat"></div>
 
 <script>
+window.onload = function() {
 
 const chat = document.getElementById("chat");
 
 const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSeX-dbXnkfHLZc1C2iPt4w0nFAWU2HsDkqLSaawQ__MHafpZA/formResponse";
 
 const entries = [
+"entry.1348966713",
 "entry.277450266",
 "entry.18817334",
-"entry.11888383627",
-"entry.838729544"
+"entry.1888383627"
 ];
 
 let answers = [];
@@ -115,7 +111,6 @@ function addMessage(text, className="msg") {
     div.className = className;
     div.innerText = text;
     chat.appendChild(div);
-    chat.scrollTop = chat.scrollHeight;
 }
 
 function showOptions(options) {
@@ -138,7 +133,7 @@ function showOptions(options) {
     chat.appendChild(div);
 }
 
-ffunction sendToGoogleForm() {
+function sendToGoogleForm() {
     let formData = new FormData();
 
     entries.forEach((entry, i) => {
@@ -156,23 +151,20 @@ function nextStep() {
     current++;
 
     if (current < steps.length) {
-        setTimeout(() => {
-            addMessage(steps[current].q);
-            showOptions(steps[current].a);
-        }, 600);
+        addMessage(steps[current].q);
+        showOptions(steps[current].a);
     } else {
         sendToGoogleForm();
-
-        setTimeout(() => {
-            addMessage("okay\n\nI’ll take this seriously\nand try to get it right");
-        }, 600);
+        addMessage("okay\n\nI’ll take this seriously\nand try to get it right");
     }
 }
 
 addMessage(steps[0].q);
 showOptions(steps[0].a);
 
+};
 </script>
 
 </body>
+</html>
 </html>
