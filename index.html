@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<h1>Working</h1>
 <html>
 <head>
 <title>Chat Planner</title>
@@ -140,17 +139,7 @@ function showOptions(options) {
 }
 
 function sendToGoogleForm() {
-    let formData = new FormData();
-
-    entries.forEach((entry, i) => {
-        formData.append(entry, answers[i]);
-    });
-
-    fetch(formURL, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData
-    });
+    alert("Sending: " + answers.join(", "));
 }
 
 function nextStep() {
