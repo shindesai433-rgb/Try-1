@@ -1,14 +1,75 @@
+<!DOCTYPE html>
 <html>
+<head>
+<title>Chat Planner</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #FFF7F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.chat {
+    width: 320px;
+    height: 500px;
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.msg {
+    background: #FFE680;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 8px 0;
+    max-width: 80%;
+}
+
+.user {
+    background: #F26A6A;
+    color: white;
+    margin-left: auto;
+}
+
+button {
+    display: block;
+    margin: 6px 0;
+    padding: 8px;
+    border: none;
+    border-radius: 15px;
+    background: #eee;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #F26A6A;
+    color: white;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="chat" id="chat"></div>
+
 <script>
 
 const chat = document.getElementById("chat");
-const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSeX-dbXnkfHLZc1C2iPt4w0nFAWU2HsDkqLSaawQ__MHafpZA/formResponse?usp=preview";
+
+const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSeX-dbXnkfHLZc1C2iPt4w0nFAWU2HsDkqLSaawQ__MHafpZA/formResponse";
 
 const entries = [
-"entry.1348966713", // Date
-"entry.277450266", // Time
-"entry.18817334", // Food
-"entry.1888383627"  // Vibe
+"entry.1348966713",
+"entry.277450266",
+"entry.18817334",
+"entry.1888383627"
 ];
 
 let answers = [];
@@ -108,9 +169,10 @@ function nextStep() {
     }
 }
 
-// start
 addMessage(steps[0].q);
 showOptions(steps[0].a);
 
 </script>
+
+</body>
 </html>
