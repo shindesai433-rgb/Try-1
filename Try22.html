@@ -1,0 +1,117 @@
+<script>
+
+const chat = document.getElementById("chat");
+
+// 🔗 YOUR GOOGLE FORM URL (formResponse)
+const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSeX-dbXnkfHLZc1C2iPt4w0nFAWU2HsDkqLSaawQ__MHafpZA/formResponse?usp=preview";
+
+// 🔑 Replace with your entry IDs
+const entries = [
+"entry.1348966713", // Date
+"entry.277450266", // Time
+"entry.18817334", // Food
+"entry.1888383627"  // Vibe
+];
+
+let answers = [];
+let current = 0;
+
+const steps = [
+{
+q: "hey\n\nlet’s plan something… slowly\njust what feels right",
+a: ["okay"]
+},
+{
+q: "what would you feel like doing",
+a: [
+"sitting somewhere with coffee and just talking",
+"a movie where we barely watch the movie",
+"I’ll let you surprise me"
+]
+},
+{
+q: "when would this feel the nicest",
+a: ["a calm morning","an easy evening","a slow night"]
+},
+{
+q: "what sounds good with that",
+a: [
+"something simple and street style",
+"a proper sit-down meal",
+"just desserts and conversations"
+]
+},
+{
+q: "what kind of mood do you want it to have",
+a: [
+"a lot of laughing",
+"both",
+"a little soft and romantic"
+]
+}
+];
+
+function addMessage(text, className="msg") {
+    const div = document.createElement("div");
+    div.className = className;
+    div.innerText = text;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function showOptions(options) {
+    const div = document.createElement("div");
+
+    options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.onclick = () => {
+            addMessage(opt, "msg user");
+            div.remove();
+
+            if(current > 0) answers.push(opt);
+
+            nextStep();
+        };
+        div.appendChild(btn);
+    });
+
+    chat.appendChild(div);
+}
+
+function sendToGoogleForm() {
+    let formData = new FormData();
+
+    entries.forEach((entry, i) => {
+        formData.append(entry, answers[i]);
+    });
+
+    fetch(formURL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+    });
+}
+
+function nextStep() {
+    current++;
+
+    if (current < steps.length) {
+        setTimeout(() => {
+            addMessage(steps[current].q);
+            showOptions(steps[current].a);
+        }, 600);
+    } else {
+        sendToGoogleForm();
+
+        setTimeout(() => {
+            addMessage("okay\n\nI’ll take this seriously\nand try to get it right");
+        }, 600);
+    }
+}
+
+// start
+addMessage(steps[0].q);
+showOptions(steps[0].a);
+
+</script>
